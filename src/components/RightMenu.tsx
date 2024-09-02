@@ -3,14 +3,17 @@ import Birthdays from "./Birthdays";
 import FriendRequests from "./FriendRequests";
 import UserInformationCard from "./UserInformationCard";
 import UserMediaCard from "./UserMediaCard";
+import { User } from "@prisma/client";
 
-const RightMenu = ({ userId = "1" }: { userId?: string }) => {
+const RightMenu = ({ user }: { user?: User }) => {
+  console.log("we have an user", user);
+
   return (
     <div className="flex flex-col gap-6">
-      {userId ? (
+      {user ? (
         <>
-          <UserInformationCard userId={userId} />
-          <UserMediaCard userId={userId} />
+          <UserInformationCard user={user} />
+          <UserMediaCard user={user} />
         </>
       ) : null}
       <FriendRequests />

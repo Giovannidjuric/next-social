@@ -1,6 +1,24 @@
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
+import { log } from "console";
 import Image from "next/image";
 
-const ProfileCard = () => {
+const ProfileCard = async () => {
+  const loggedInUser = auth();
+
+  if (loggedInUser.userId != null) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: loggedInUser.userId,
+      },
+      include: {
+        _count: {
+          select: { followers: true },
+        },
+      },
+    });
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 flex flex-col gap-6">
       <div className="h-20 z-10 relative">

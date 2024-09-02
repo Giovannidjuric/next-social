@@ -1,16 +1,21 @@
+import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 type UserMediaCardProps = {
-  userId: string;
-  name: string;
+  user: User;
 };
 
-const UserMediaCard = ({ userId, name = "User Media" }: UserMediaCardProps) => {
+const UserMediaCard = ({ user }: UserMediaCardProps) => {
   return (
     <div className="bg-white p-4 shadow-md rounded-lg text-sm flex flex-col gap-4">
       <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">{name}</span>
+        <span className="text-gray-500">
+          {" "}
+          {user.name && user.surname
+            ? `${user.name} ${user.surname}`
+            : `${user.username}`}
+        </span>
         <Link
           href="/"
           className="text-xs text-blue-500 font-semibold hover:underline-offset-2 hover:underline"
